@@ -57,6 +57,8 @@ else:
 
 df.info()
 
+df.columns = df.columns.str.replace("’", "'", regex=False)
+
 df2 = df[[
     "Event Title", "Order Date",
     "Hey there! What's your name? (First)",
