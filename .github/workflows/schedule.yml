@@ -1,0 +1,27 @@
+name: BL2026 Hourly Sync
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # Every hour
+  workflow_dispatch:        # Manual trigger button in GitHub UI
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run BL2026 script
+        env:
+          BL_SERVICE_ACCOUNT: ${{ secrets.BL_SERVICE_ACCOUNT }}
+        run: python bl2026.py
