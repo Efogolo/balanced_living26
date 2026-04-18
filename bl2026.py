@@ -157,6 +157,7 @@ cities_list2 = [
 pattern1 = re.compile(r"\b(" + "|".join(map(re.escape, cities_list1)) + r")\b", flags=re.IGNORECASE)
 
 mask = (
+    cleaned_df["Country"].fillna("").str.strip().str.lower().isin(["canada", ""]) & 
     cleaned_df["Province"].fillna("").str.strip().str.lower().isin(["ontario", ""]) |
     cleaned_df["What city do you live in?"].fillna("").str.contains(pattern1) |
     cleaned_df["Name of your city"].fillna("").str.lower().isin([c.lower() for c in cities_list2])
